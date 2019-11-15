@@ -1,0 +1,48 @@
+.wrapper {
+
+  form {
+    .controls-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 1fr;
+      grid-gap: 20px;
+      width: 100%;
+
+      .group-wrapper {
+        display: flex;
+        flex-direction: column;
+
+        div {
+          position: relative;
+
+          mat-form-field {
+            width: 100%;
+          }
+          span {
+            position: absolute;
+            right: 0;
+            top: 20px;
+
+          }
+        }
+      }
+
+      &.interests {
+        .group-wrapper {
+          display: flex;
+          flex-direction: row;
+
+          div {
+            position: relative;
+
+            mat-form-field {
+              width: 50%;
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+}
