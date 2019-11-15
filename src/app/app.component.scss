@@ -1,6 +1,7 @@
 .wrapper {
 
   form {
+
     .controls-wrapper {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -18,6 +19,7 @@
           mat-form-field {
             width: 100%;
           }
+
           span {
             position: absolute;
             right: 0;
@@ -28,6 +30,7 @@
       }
 
       &.interests {
+
         .group-wrapper {
           display: flex;
           flex-direction: row;
