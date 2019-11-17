@@ -26,6 +26,21 @@
 
           }
         }
+        &.feature {
+          .mat-form-field {
+            max-width: 360px;
+          }
+        }
+      }
+      .group-wrapper-inner {
+        flex-direction: row;
+        .mat-chip {
+          margin-right: 10px;
+          margin-bottom: 10px;
+          &:last-child {
+            margin-right: 0;
+          }
+        }
       }
 
       &.interests {

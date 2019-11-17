@@ -190,7 +190,7 @@
 
     <div class="controls-wrapper features">
 
-      <div class="group-wrapper">
+      <div class="group-wrapper feature">
         <mat-form-field class="example-chip-list">
           <input placeholder="New feature..."
                  [matChipInputFor]="chipList"
@@ -201,14 +201,17 @@
           <mat-chip-list #chipList aria-label="Find feature"></mat-chip-list>
         </mat-form-field>
 
-        <mat-chip
-          *ngFor="let feature of features"
-          [selectable]="selectable"
-          [removable]="removable"
-          (removed)="removeChip(feature)">
-          {{ feature.name }}
-          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-        </mat-chip>
+        <div class="group-wrapper-inner">
+          <mat-chip
+            *ngFor="let feature of features"
+            [selectable]="selectable"
+            [removable]="removable"
+            (removed)="removeChip(feature)">
+            {{ feature.name }}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+        </div>
+
       </div>
 
     </div>
