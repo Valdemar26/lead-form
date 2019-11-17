@@ -7,6 +7,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material';
 
 
 @NgModule({
@@ -18,7 +23,12 @@ import { MatSelectModule } from '@angular/material/select';
     BrowserAnimationsModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatMomentDateModule,
+    MatChipsModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
