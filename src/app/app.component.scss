@@ -1,4 +1,5 @@
 .wrapper {
+  padding: 10px;
 
   form {
     .controls-wrapper {
@@ -25,6 +26,21 @@
 
           }
         }
+        &.feature {
+          .mat-form-field {
+            max-width: 360px;
+          }
+        }
+      }
+      .group-wrapper-inner {
+        flex-direction: row;
+        .mat-chip {
+          margin-right: 10px;
+          margin-bottom: 10px;
+          &:last-child {
+            margin-right: 0;
+          }
+        }
       }
 
       &.interests {
@@ -39,8 +55,78 @@
               width: 50%;
             }
           }
+
+          .found {
+            background: #959595;
+            color: #fff;
+            padding: 10px;
+          }
+
+          &.twice {
+            flex-direction: column;
+
+            h4 {
+              margin: 0;
+            }
+
+            .wrapper {
+              border: 1px solid #ccc;
+              border-radius: 5px;
+              background: #fff;
+              color: #4e4e4e;
+              display: flex;
+              justify-content: space-between;
+
+              span {
+                position: static;
+
+                &:after {
+                  content: '|';
+                }
+              }
+            }
+
+
+            mat-form-field {
+              width: 100%;
+            }
+          }
+
         }
       }
+
+      &.features {
+        grid-template-columns: 1fr 1fr;
+
+        .group-wrapper {
+
+          ::ng-deep .mat-form-field {
+
+            mat-chip-list {
+
+              .mat-chip-list-wrapper {
+
+              }
+            }
+          }
+
+          span {
+            cursor: pointer;
+            color: #3087FF;
+          }
+        }
+      }
+    }
+
+    button {
+      background: #3087FF;
+      color: #fff;
+      padding: 12px 30px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      outline: none;
+      margin: 20px auto;
     }
 
   }
