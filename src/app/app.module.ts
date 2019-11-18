@@ -12,6 +12,7 @@ import { MatNativeDateModule } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { MatIconModule } from '@angular/material';
     MatNativeDateModule,
     MatMomentDateModule,
     MatChipsModule,
-    MatIconModule
+    MatIconModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

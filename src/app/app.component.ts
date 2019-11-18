@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
@@ -13,7 +13,9 @@ export class AppComponent implements OnInit {
   emails: FormArray;
   phones: FormArray;
   customs: FormArray;
+  minsize: FormArray;
   value: string;
+  isLoading = false;
 
   minSize: any = [
     {value: '50 m'},
@@ -99,23 +101,24 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.leadForm = this.formBuilder.group({
-      name: '',
-      surname: '',
-      address: '',
+      name: ['', [Validators.required, Validators.minLength(2)]],
+      surname: ['', [Validators.required, Validators.minLength(2)]],
+      address: ['', [Validators.required]],
       emails: this.formBuilder.array([ this.formBuilder.control('') ]),
       phones: this.formBuilder.array([ this.formBuilder.control('') ]),
       status: '',
       buyer: '',
       source: '',
       customs: this.formBuilder.array([ this.formBuilder.control('') ]),
-      minsize: '',
+      minsize: this.formBuilder.array([ this.formBuilder.control('') ]),
       maxsize: '',
-      from: '',
+      budgetfrom: '',
       to: '',
       propertyType: '',
       apartmentType: '',
       city: '',
-      yearBuilt: ''
+      yearBuilt: '',
+      picker: ''
     });
   }
 
@@ -134,8 +137,10 @@ export class AppComponent implements OnInit {
     this.customs.push(this.formBuilder.control(''));
   }
 
-  submitForm() {
-    console.log('LeadForm: ', this.leadForm.value);
+  addMinSizeItem(data): void {
+    console.log('Data: ');
+    this.minsize = this.leadForm.get('minsize') as FormArray;
+    this.minsize.push(this.formBuilder.control(data));
   }
 
   addChip(event: MatChipInputEvent): void {
@@ -159,6 +164,17 @@ export class AppComponent implements OnInit {
     if (index >= 0) {
       this.features.splice(index, 1);
     }
+  }
+
+  submitForm() {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+    console.log('LeadForm: ', this.leadForm.value);
+    this.isLoading = true;
+    this.leadForm.reset();
+
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 3500);
   }
 
 }

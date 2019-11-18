@@ -1,6 +1,8 @@
-<div class="wrapper">
-  <h1>Add New Lead</h1>
-  <p>Close</p>
+<div class="wrapper" [class.darken]="isLoading">
+  <div class="head">
+    <h1>Add New Lead</h1>
+    <p>Close</p>
+  </div>
 
   <form [formGroup]="leadForm">
 
@@ -10,7 +12,7 @@
 
       <div class="group-wrapper">
         <mat-form-field>
-          <input matInput placeholder="Name" value="Bastian" formControlName="name">
+          <input matInput placeholder="Name" formControlName="name">
         </mat-form-field>
         <mat-form-field>
           <input matInput placeholder="Surname" formControlName="surname">
@@ -69,14 +71,16 @@
     <div class="controls-wrapper interests">
 
       <div class="group-wrapper">
-        <mat-form-field class="half">
-          <mat-label >Size/Square feet</mat-label>
-          <mat-select> <!-- [formControlName]="minsize" -->
-            <mat-option *ngFor="let min of minSize" [value]="min.value">
-              {{ min.value }}<sub style="vertical-align: super;">2</sub>
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+        <div formArrayName="minsize">
+          <mat-form-field class="half">
+            <mat-label >Size/Square feet</mat-label>
+            <mat-select (selectionChange)="addMinSizeItem($event.value)"> <!-- [formControlName]="minsize" -->
+              <mat-option *ngFor="let min of minSize" [value]="min.value">
+                {{ min.value }}<sub style="vertical-align: super;">2</sub>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
 
         <mat-form-field class="half">
           <mat-select> <!-- [formControlName]="maxsize" -->
@@ -91,8 +95,8 @@
         <mat-form-field class="half">
           <mat-label >Budget</mat-label>
           <mat-select> <!-- [formControlName]="from" -->
-            <mat-option *ngFor="let from of budgetFrom" [value]="from.value">
-              {{ from.value }}
+            <mat-option *ngFor="let budget of budgetFrom" [value]="budget.value">
+              {{ budget.value }}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -108,6 +112,7 @@
 
       <div class="group-wrapper">
         <div class="found">
+          <i class="material-icons">check_circle</i>
           <h3>We found 3 items for you</h3>
           <p>Please, add more interests to help us find the most appropriate matched units.</p>
         </div>
@@ -138,11 +143,11 @@
       <div class="group-wrapper twice">
         <h4>Beds</h4>
         <div class="wrapper">
-          <span>All</span>
-          <span>1</span>
-          <span>2</span>
-          <span>3</span>
-          <span>4+</span>
+          <button>All</button>
+          <button>1</button>
+          <button>2</button>
+          <button>3</button>
+          <button>4+</button>
         </div>
 
       </div>
@@ -174,8 +179,8 @@
       </div>
 
       <div class="group-wrapper twice">
-        <mat-form-field>
-          <input matInput [matDatepicker]="picker" placeholder="Move-in date">
+        <mat-form-field >
+          <input matInput formControlName="picker" [matDatepicker]="picker" placeholder="Move-in date">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
@@ -223,7 +228,13 @@
 
     </div>
 
-    <button type="submit" (click)="submitForm()">Submit</button>
+    <button mat-raised-button type="submit"
+      (click)="submitForm()" [disabled]="!leadForm.valid">Submit</button>
 
   </form>
+
+</div>
+
+<div class="loading" *ngIf="isLoading">
+  <img src="../assets/circle.gif" alt="loader">
 </div>
