@@ -1,6 +1,32 @@
 .wrapper {
   padding: 10px;
 
+  &.darken {
+    opacity: 0.4;
+  }
+
+  .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    p {
+      cursor: pointer;
+      color: #3087FF;
+      font-weight: 700;
+      padding: 12px 20px;
+      box-sizing: border-box;
+      min-width: 80px;
+      border: 1px solid #fff;
+      border-radius: 5px;
+      transition: border 0.3s ease;
+
+      &:hover {
+        border: 1px solid #3087FF;
+      }
+    }
+  }
+
   form {
 
     .controls-wrapper {
@@ -30,6 +56,7 @@
           }
         }
         &.feature {
+
           .mat-form-field {
             max-width: 360px;
           }
@@ -42,9 +69,17 @@
         .mat-chip {
           margin-right: 10px;
           margin-bottom: 10px;
+          background: #3087FF;
+          color: #fff;
 
           &:last-child {
             margin-right: 0;
+          }
+          &.mat-standard-chip {
+            .mat-chip-remove {
+              color: #fff;
+              opacity: .8;
+            }
           }
         }
       }
@@ -78,6 +113,23 @@
           }
           &:nth-child(6) {
             grid-area: beds;
+
+            .wrapper {
+              padding: 0;
+
+              button {
+                border: 1px solid #ccc;
+                background: #fff;
+                color: #5B5B5B;
+                transition: background 0.3s ease, color 0.3s ease;
+
+                &:hover {
+                  background: #3087FF;
+                  color: #fff;
+                  border: 1px solid #3087FF;
+                }
+              }
+            }
           }
           &:nth-child(7) {
             grid-area: baths;
@@ -110,7 +162,10 @@
           .found {
             background: #959595;
             color: #fff;
-            padding: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
           }
 
           &.twice {
@@ -121,8 +176,6 @@
             }
 
             .wrapper {
-              border: 1px solid #ccc;
-              border-radius: 5px;
               background: #fff;
               color: #4e4e4e;
               display: flex;
@@ -156,7 +209,6 @@
             input.mat-chip-input {
               width: 85%;
             }
-
           }
 
           span {
@@ -208,8 +260,26 @@
       border-radius: 5px;
       outline: none;
       margin: 20px auto;
+      transition: background 0.3s ease;
+      line-height: 1.3;
+
+      &:hover {
+        background: darken(#3087FF, 5%);
+      }
+
+      &:disabled,
+      &[disabled]{
+        cursor: not-allowed;
+        background: lighten(#3087FF, 10%);
+      }
     }
 
   }
+}
 
+.loading {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
