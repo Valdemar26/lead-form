@@ -118,7 +118,8 @@ export class AppComponent implements OnInit {
       apartmentType: '',
       city: '',
       yearBuilt: '',
-      picker: ''
+      picker: '',
+      features: '',
     });
   }
 
@@ -142,6 +143,11 @@ export class AppComponent implements OnInit {
     this.minsize = this.leadForm.get('minsize') as FormArray;
     this.minsize.push(this.formBuilder.control(data));
   }
+
+  // addFeaturesItem(): void {
+  //   this.features = this.leadForm.get('features') as FormArray;
+  //   this.features.push(this.formBuilder.control(''));
+  // }
 
   addChip(event: MatChipInputEvent): void {
     const input = event.input;
