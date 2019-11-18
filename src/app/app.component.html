@@ -71,24 +71,149 @@
       <div class="group-wrapper">
         <mat-form-field>
           <mat-label >Size/Square feet</mat-label>
-          <mat-select>
-            <mat-option *ngFor="let food of foods" [value]="food.value">
-              {{food.value}}
+          <mat-select> <!-- [formControlName]="minsize" -->
+            <mat-option *ngFor="let min of minSize" [value]="min.value">
+              {{ min.value }}<sub style="vertical-align: super;">2</sub>
             </mat-option>
           </mat-select>
         </mat-form-field>
 
         <mat-form-field>
-          <mat-select>
-            <mat-option *ngFor="let food of foods" [value]="food.value">
-              {{food.value}}
+          <mat-select> <!-- [formControlName]="maxsize" -->
+            <mat-option *ngFor="let max of maxSize" [value]="max.value">
+              {{ max.value }}<sub style="vertical-align: super;">2</sub>
             </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
+
+      <div class="group-wrapper">
+        <mat-form-field>
+          <mat-label >Budget</mat-label>
+          <mat-select> <!-- [formControlName]="from" -->
+            <mat-option *ngFor="let from of budgetFrom" [value]="from.value">
+              {{ from.value }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-select> <!-- [formControlName]="to" -->
+            <mat-option *ngFor="let to of budgetTo" [value]="to.value">
+              {{ to.value }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="group-wrapper">
+        <div class="found">
+          <h3>We found 3 items for you</h3>
+          <p>Please, add more interests to help us find the most appropriate matched units.</p>
+        </div>
+      </div>
+
+      <div class="group-wrapper twice">
+        <mat-form-field>
+          <mat-label >Property Type</mat-label>
+          <mat-select> <!-- [formControlName]="propertyType" -->
+            <mat-option *ngFor="let prop of property" [value]="prop.value">
+              {{ prop.value }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="group-wrapper twice">
+        <mat-form-field>
+          <mat-label >Apartment Type</mat-label>
+          <mat-select> <!-- [formControlName]="apartmentType" -->
+            <mat-option *ngFor="let apartment of apartmentType" [value]="apartment.value">
+              {{ apartment.value }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="group-wrapper twice">
+        <h4>Beds</h4>
+        <div class="wrapper">
+          <span>All</span>
+          <span>1</span>
+          <span>2</span>
+          <span>3</span>
+          <span>4+</span>
+        </div>
+
+      </div>
+
+      <div class="group-wrapper twice">
+        <h4>Baths</h4>
+      </div>
+
+      <div class="group-wrapper twice">
+        <mat-form-field>
+          <mat-label >City/Neighborhod/Zip</mat-label>
+          <mat-select> <!-- [formControlName]="city" -->
+            <mat-option *ngFor="let c of city" [value]="c.value">
+              {{ c.value }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="group-wrapper twice">
+        <mat-form-field>
+          <mat-label >Year built</mat-label>
+          <mat-select> <!-- [formControlName]="yearBuilt" -->
+            <mat-option *ngFor="let y of year" [value]="y.value">
+              {{ y.value }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="group-wrapper twice">
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" placeholder="Move-in date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+    </div>
+
+    <h3>Preferable features</h3>
+
+    <div class="controls-wrapper features">
+
+      <div class="group-wrapper feature">
+        <mat-form-field class="example-chip-list">
+          <input placeholder="New feature..."
+                 [matChipInputFor]="chipList"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 [matChipInputAddOnBlur]="addOnBlur"
+                 (matChipInputTokenEnd)="addChip($event)">
+          <span (click)="addChip($event)">+ Add</span>
+          <mat-chip-list #chipList aria-label="Find feature"></mat-chip-list>
+        </mat-form-field>
+
+        <div class="group-wrapper-inner">
+          <mat-chip
+            *ngFor="let feature of features"
+            [selectable]="selectable"
+            [removable]="removable"
+            (removed)="removeChip(feature)">
+            {{ feature.name }}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+        </div>
+
+      </div>
+
     </div>
 
   <button type="submit" (click)="submitForm()"> Submit </button>
+  <button type="submit" (click)="submitForm()">Submit</button>
   </form>
 </div>
-
