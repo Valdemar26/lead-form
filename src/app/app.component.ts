@@ -76,6 +76,23 @@ export class AppComponent implements OnInit {
     {name: 'Feature3'},
   ];
 
+  chips: any = [
+    {name: 'Feature1'},
+    {name: 'Feature2'},
+    {name: 'Feature3'},
+    {name: 'Long Title feature'},
+    {name: 'Feature1'},
+    {name: 'Feature2'},
+    {name: 'Feature3'},
+    {name: 'Feature1'},
+    {name: 'Feature2'},
+    {name: 'Feature3'},
+    {name: 'Long Title feature'},
+    {name: 'Feature1'},
+    {name: 'Feature2'},
+    {name: 'Feature3'}
+  ];
+
   constructor(private formBuilder: FormBuilder) {
 
   }

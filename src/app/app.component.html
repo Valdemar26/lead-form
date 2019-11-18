@@ -28,7 +28,7 @@
               <input matInput placeholder="Email" [formControlName]="i">
             </mat-form-field>
           </ng-container>
-          <span (click)="addEmailItem()">Add</span>
+          <span class="add" (click)="addEmailItem()">+ Add</span>
         </div>
 
         <div formArrayName="phones">
@@ -69,7 +69,7 @@
     <div class="controls-wrapper interests">
 
       <div class="group-wrapper">
-        <mat-form-field>
+        <mat-form-field class="half">
           <mat-label >Size/Square feet</mat-label>
           <mat-select> <!-- [formControlName]="minsize" -->
             <mat-option *ngFor="let min of minSize" [value]="min.value">
@@ -78,7 +78,7 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field class="half">
           <mat-select> <!-- [formControlName]="maxsize" -->
             <mat-option *ngFor="let max of maxSize" [value]="max.value">
               {{ max.value }}<sub style="vertical-align: super;">2</sub>
@@ -88,7 +88,7 @@
       </div>
 
       <div class="group-wrapper">
-        <mat-form-field>
+        <mat-form-field class="half">
           <mat-label >Budget</mat-label>
           <mat-select> <!-- [formControlName]="from" -->
             <mat-option *ngFor="let from of budgetFrom" [value]="from.value">
@@ -97,7 +97,7 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field class="half">
           <mat-select> <!-- [formControlName]="to" -->
             <mat-option *ngFor="let to of budgetTo" [value]="to.value">
               {{ to.value }}
@@ -181,6 +181,8 @@
         </mat-form-field>
       </div>
 
+      <div class="group-wrapper"></div>
+
     </div>
 
     <h3>Preferable features</h3>
@@ -208,12 +210,20 @@
             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
           </mat-chip>
         </div>
+      </div>
 
+      <div class="group-wrapper feature">
+        <h4>Select feature your lead might be interested in</h4>
+        <div class="chip-wrapper">
+          <div class="chip" *ngFor="let chip of chips">
+            {{ chip.name }}
+          </div>
+        </div>
       </div>
 
     </div>
 
-  <button type="submit" (click)="submitForm()"> Submit </button>
-  <button type="submit" (click)="submitForm()">Submit</button>
+    <button type="submit" (click)="submitForm()">Submit</button>
+
   </form>
 </div>
