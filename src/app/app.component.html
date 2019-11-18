@@ -195,25 +195,32 @@
     <div class="controls-wrapper features">
 
       <div class="group-wrapper feature">
-        <mat-form-field class="example-chip-list">
-          <input placeholder="New feature..."
-                 [matChipInputFor]="chipList"
-                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                 [matChipInputAddOnBlur]="addOnBlur"
-                 (matChipInputTokenEnd)="addChip($event)">
-          <span (click)="addChip($event)">+ Add</span>
-          <mat-chip-list #chipList aria-label="Find feature"></mat-chip-list>
-        </mat-form-field>
+
+<!--        <ng-container *ngFor="let item of leadForm.get('features').controls; let i = index;">-->
+          <mat-form-field class="example-chip-list">
+<!--            [formControlName]="i"-->
+            <input placeholder="New feature..."
+                   [matChipInputFor]="chipList"
+                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                   [matChipInputAddOnBlur]="addOnBlur"
+                   (matChipInputTokenEnd)="addChip($event)"
+                   >
+            <span (click)="addChip($event);">+ Add</span>
+            <mat-chip-list #chipList aria-label="Find feature"></mat-chip-list>
+          </mat-form-field>
+<!--        </ng-container>-->
+
 
         <div class="group-wrapper-inner">
-          <mat-chip
-            *ngFor="let feature of features"
-            [selectable]="selectable"
-            [removable]="removable"
-            (removed)="removeChip(feature)">
-            {{ feature.name }}
-            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-          </mat-chip>
+            <mat-chip
+              *ngFor="let feature of features"
+              [selectable]="selectable"
+              [removable]="removable"
+              (removed)="removeChip(feature)">
+              {{ feature.name }}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+
         </div>
       </div>
 
