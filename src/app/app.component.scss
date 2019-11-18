@@ -2,6 +2,7 @@
   padding: 10px;
 
   form {
+
     .controls-wrapper {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -19,11 +20,13 @@
           mat-form-field {
             width: 100%;
           }
+
           span {
             position: absolute;
             right: 0;
             top: 20px;
-
+            cursor: pointer;
+            color: #3087FF;
           }
         }
         &.feature {
@@ -32,11 +35,14 @@
           }
         }
       }
+
       .group-wrapper-inner {
         flex-direction: row;
+
         .mat-chip {
           margin-right: 10px;
           margin-bottom: 10px;
+
           &:last-child {
             margin-right: 0;
           }
@@ -44,17 +50,62 @@
       }
 
       &.interests {
+        grid-template-areas:
+          "square budget found"
+          "property apartment found"
+          "beds baths found"
+          "city year found"
+          "date empty found";
+
         .group-wrapper {
           display: flex;
           flex-direction: row;
 
-          div {
-            position: relative;
+          &:nth-child(1) {
+            grid-area: square;
+          }
+          &:nth-child(2) {
+            grid-area: budget;
+          }
+          &:nth-child(3) {
+            grid-area: found;
+          }
+          &:nth-child(4) {
+            grid-area: property;
+          }
+          &:nth-child(5) {
+            grid-area: apartment;
+          }
+          &:nth-child(6) {
+            grid-area: beds;
+          }
+          &:nth-child(7) {
+            grid-area: baths;
+          }
+          &:nth-child(8) {
+            grid-area: city;
+          }
+          &:nth-child(9) {
+            grid-area: year;
+          }
+          &:nth-child(10) {
+            grid-area: date;
+          }
+          &:nth-child(11) {
+            grid-area: empty;
+          }
 
             mat-form-field {
-              width: 50%;
+
+              &.half {
+                width: 100%;
+
+                &:first-child {
+                  margin-right: 10px;
+                }
+              }
             }
-          }
+
 
           .found {
             background: #959595;
@@ -102,12 +153,10 @@
 
           ::ng-deep .mat-form-field {
 
-            mat-chip-list {
-
-              .mat-chip-list-wrapper {
-
-              }
+            input.mat-chip-input {
+              width: 85%;
             }
+
           }
 
           span {
@@ -115,6 +164,38 @@
             color: #3087FF;
           }
         }
+
+        mat-chip {
+          max-width: 150px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        h4 {
+          color: #5d5555;
+          font-weight: 400;
+        }
+
+        .chip-wrapper {
+          display: flex;
+          flex-wrap: wrap;
+
+          .chip {
+            background-color: #e0e0e0;
+            color: rgba(0,0,0,.87);
+            transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
+            padding: 7px 12px;
+            border-radius: 16px;
+            align-items: center;
+            cursor: pointer;
+            min-height: 18px;
+            font-size: 14px;
+            margin-right: 8px;
+            margin-bottom: 10px;
+          }
+        }
+
       }
     }
 
