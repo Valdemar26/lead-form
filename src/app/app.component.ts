@@ -1,19 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import {fromEvent} from 'rxjs';
+import {tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
   leadForm: FormGroup;
   emails: FormArray;
   phones: FormArray;
   customs: FormArray;
   minsize: FormArray;
+  beds: FormArray;
+  featuresList: FormArray;
   value: string;
   isLoading = false;
 
@@ -72,11 +76,7 @@ export class AppComponent implements OnInit {
   removable = true;
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-  features: any = [
-    {name: 'Feature1'},
-    {name: 'Feature2'},
-    {name: 'Feature3'},
-  ];
+  features: any = [];
 
   chips: any = [
     {name: 'Feature1'},
@@ -95,23 +95,45 @@ export class AppComponent implements OnInit {
     {name: 'Feature3'}
   ];
 
-  constructor(private formBuilder: FormBuilder) {
+  buttons = [
+    {
+      name: '1',
+      check: false,
+    },
+    {
+      name: '2',
+      check: false,
+    },
+    {
+      name: '3',
+      check: false,
+    },
+    {
+      name: '4+',
+      check: false,
+    },
+  ];
 
-  }
+  selectedButtons: any[] = [];
+  submitted = false;
+
+  @ViewChild('buttonsRef', {static: true}) buttonsRef: ElementRef;
+
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit() {
     this.leadForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       surname: ['', [Validators.required, Validators.minLength(2)]],
       address: ['', [Validators.required]],
-      emails: this.formBuilder.array([ this.formBuilder.control('') ]),
+      emails: this.formBuilder.array([ this.formBuilder.control('', [Validators.required, Validators.email]) ]),
       phones: this.formBuilder.array([ this.formBuilder.control('') ]),
       status: '',
       buyer: '',
       source: '',
       customs: this.formBuilder.array([ this.formBuilder.control('') ]),
-      minsize: this.formBuilder.array([ this.formBuilder.control('') ]),
-      maxsize: '',
+      minsize: this.formBuilder.array([]),
+      maxsize: this.formBuilder.array([]),
       budgetfrom: '',
       to: '',
       propertyType: '',
@@ -119,13 +141,38 @@ export class AppComponent implements OnInit {
       city: '',
       yearBuilt: '',
       picker: '',
-      features: '',
+      features: this.formBuilder.array([]),
+      beds: this.formBuilder.array([]),
     });
+  }
+
+  // convenience getter for easy access to form fields
+  get form() { return this.leadForm.controls; }
+
+  selectAll() {
+    this.selectedButtons.length = 0;
+    console.log(this.form);
+  }
+
+  selectBeds(button): any {
+    if (!this.selectedButtons.includes(button.name) && this.selectedButtons.length <= 1 )  {
+      this.selectedButtons.push(button.name);
+    } else if ( this.selectedButtons.length === 2 && !this.selectedButtons.includes(button.name) ) {
+      this.selectedButtons.pop();
+      this.selectedButtons.push(button.name);
+    } else {
+      this.selectedButtons = this.selectedButtons.filter((item) => item !== button.name);
+    }
   }
 
   addEmailItem(): void {
     this.emails = this.leadForm.get('emails') as FormArray;
-    this.emails.push(this.formBuilder.control(''));
+    this.emails.push(this.formBuilder.control('', [Validators.required, Validators.email]));
+  }
+
+  addFeatures(value): void {
+    this.featuresList = this.leadForm.get('features') as FormArray;
+    this.featuresList.push(this.formBuilder.control(value));
   }
 
   addPhoneItem(): void {
@@ -142,6 +189,17 @@ export class AppComponent implements OnInit {
     console.log('Data: ');
     this.minsize = this.leadForm.get('minsize') as FormArray;
     this.minsize.push(this.formBuilder.control(data));
+  }
+
+  initBedsControl(): void {
+    this.buttons.forEach(button => {
+      this.beds = this.leadForm.get('beds') as FormArray;
+      this.beds.push(this.formBuilder.control(button.name));
+    });
+  }
+
+  ngAfterViewInit(): void {
+    this.initBedsControl();
   }
 
   // addFeaturesItem(): void {
@@ -162,6 +220,8 @@ export class AppComponent implements OnInit {
     if (input) {
       input.value = '';
     }
+
+    this.addFeatures(value);
   }
 
   removeChip(feature: any): void {
@@ -173,7 +233,19 @@ export class AppComponent implements OnInit {
   }
 
   submitForm() {
+
+    this.submitted = true;
     window.scrollTo({top: 0, behavior: 'smooth'});
+    if (this.selectedButtons.length) {
+      this.leadForm.value.beds = this.selectedButtons.sort().reduce((acc, item, index, arr) => {
+        acc.min = arr[0];
+        acc.max = arr[1];
+        return acc;
+      }, {});
+    } else {
+       this.leadForm.value.beds = { beds: 'All'};
+    }
+
     console.log('LeadForm: ', this.leadForm.value);
     this.isLoading = true;
     this.leadForm.reset();
