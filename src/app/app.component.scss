@@ -42,7 +42,6 @@
 
         div {
           position: relative;
-
           mat-form-field {
             width: 100%;
           }
@@ -55,6 +54,20 @@
             color: #3087FF;
           }
         }
+
+        .mat-form-wrapp {
+          position: relative;
+
+          .invalid-feedback {
+            position: absolute;
+            top: 35px;
+            left: 0;
+            div {
+              color: red;
+            }
+          }
+        }
+
         &.feature {
 
           .mat-form-field {
@@ -181,6 +194,19 @@
               display: flex;
               justify-content: space-between;
 
+              .selected {
+                border: 1px solid #00214e;
+                background-color: #114388;
+                color: #fff;
+              }
+
+              button {
+                &:hover {
+                  border: 1px solid #113D7A;
+                  background-color: #113D7A;
+                }
+              }
+
               span {
                 position: static;
 
@@ -203,6 +229,7 @@
         grid-template-columns: 1fr 1fr;
 
         .group-wrapper {
+          position: relative;
 
           ::ng-deep .mat-form-field {
 
@@ -215,6 +242,7 @@
             cursor: pointer;
             color: #3087FF;
           }
+
         }
 
         mat-chip {
@@ -276,6 +304,8 @@
 
   }
 }
+
+
 
 .loading {
   position: absolute;

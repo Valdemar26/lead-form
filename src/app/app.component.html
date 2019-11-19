@@ -26,8 +26,12 @@
 
         <div formArrayName="emails">
           <ng-container *ngFor="let item of leadForm.get('emails').controls; let i = index;">
-            <mat-form-field>
-              <input matInput placeholder="Email" [formControlName]="i">
+            <mat-form-field class="mat-form-wrapp">
+              <input matInput placeholder="Email" type="email" [formControlName]="i">
+              <div *ngIf="form.emails.controls[i]?.errors" class="invalid-feedback">
+                <div *ngIf="form.emails.controls[i]?.errors.required && form.emails.controls[i]?.touched">Email is required</div>
+                <div *ngIf="form.emails.controls[i]?.errors.email">Email must be a valid email address</div>
+              </div>
             </mat-form-field>
           </ng-container>
           <span class="add" (click)="addEmailItem()">+ Add</span>
@@ -58,7 +62,7 @@
         <div formArrayName="phones">
           <ng-container *ngFor="let item of leadForm.get('customs').controls; let i = index;">
             <mat-form-field>
-              <input matInput placeholder="+Add custom field" [formControlName]="i">
+              <input matInput [disabled]="true" placeholder="+Add custom field" [formControlName]="i">
             </mat-form-field>
           </ng-container>
         </div>
@@ -82,13 +86,16 @@
           </mat-form-field>
         </div>
 
-        <mat-form-field class="half">
-          <mat-select> <!-- [formControlName]="maxsize" -->
-            <mat-option *ngFor="let max of maxSize" [value]="max.value">
-              {{ max.value }}<sub style="vertical-align: super;">2</sub>
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+        <div formArrayName="maxsize">
+          <mat-form-field class="half">
+            <mat-select> <!-- [formControlName]="maxsize" -->
+              <mat-option *ngFor="let max of maxSize" [value]="max.value">
+                {{ max.value }}<sub style="vertical-align: super;">2</sub>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
       </div>
 
       <div class="group-wrapper">
@@ -143,14 +150,18 @@
       <div class="group-wrapper twice">
         <h4>Beds</h4>
         <div class="wrapper">
-          <button>All</button>
-          <button>1</button>
-          <button>2</button>
-          <button>3</button>
-          <button>4+</button>
-        </div>
+          <button
+            (click)="selectAll()"
+            [class.selected] = '!this.selectedButtons.length'>All
+          </button>
 
+            <button *ngFor="let button of buttons"
+                    (click) = ' button.check = !button.check; selectBeds(button)'
+                    [class.selected] = 'selectedButtons.includes(button.name)'>{{ button.name }}
+            </button>
+        </div>
       </div>
+
 
       <div class="group-wrapper twice">
         <h4>Baths</h4>
@@ -194,22 +205,18 @@
 
     <div class="controls-wrapper features">
 
-      <div class="group-wrapper feature">
+      <div class="group-wrapper feature" formArrayName="features">
 
-<!--        <ng-container *ngFor="let item of leadForm.get('features').controls; let i = index;">-->
           <mat-form-field class="example-chip-list">
-<!--            [formControlName]="i"-->
+
             <input placeholder="New feature..."
                    [matChipInputFor]="chipList"
                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                    [matChipInputAddOnBlur]="addOnBlur"
-                   (matChipInputTokenEnd)="addChip($event)"
-                   >
+                   (matChipInputTokenEnd)="addChip($event)">
             <span (click)="addChip($event);">+ Add</span>
             <mat-chip-list #chipList aria-label="Find feature"></mat-chip-list>
           </mat-form-field>
-<!--        </ng-container>-->
-
 
         <div class="group-wrapper-inner">
             <mat-chip
