@@ -122,6 +122,17 @@ export class AppComponent implements OnInit, AfterViewInit {
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit() {
+    this.initForm();
+  }
+
+  /**
+   * use 'FormBuilder service' to large forms, or 'FormGroup' for small forms
+   *
+   * FormGroup groups AbstractControl objects in an object.
+   * FormArray groups AbstractControl in an array
+   */
+
+  initForm() {
     this.leadForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       surname: ['', [Validators.required, Validators.minLength(2)]],
@@ -166,7 +177,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   addEmailItem(): void {
-    this.emails = this.leadForm.get('emails') as FormArray;
+    this.emails = this.leadForm.get('emails') as FormArray; // 'this.leadForm.controls.emails' is bad code-style, use '.get' method instead
     this.emails.push(this.formBuilder.control('', [Validators.required, Validators.email]));
   }
 
