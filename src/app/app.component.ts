@@ -16,6 +16,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   phones: FormArray;
   customs: FormArray;
   minsize: FormArray;
+  maxsize: FormArray;
   beds: FormArray;
   featuresList: FormArray;
   value: string;
@@ -145,12 +146,12 @@ export class AppComponent implements OnInit, AfterViewInit {
       customs: this.formBuilder.array([ this.formBuilder.control('') ]),
       minsize: this.formBuilder.array([]),
       maxsize: this.formBuilder.array([]),
-      budgetfrom: '',
-      to: '',
-      propertyType: '',
-      apartmentType: '',
-      city: '',
-      yearBuilt: '',
+      budgetfrom: ['', Validators.required],
+      budgetto: ['', Validators.required],
+      propertyType: ['', Validators.required],
+      apartmentType: ['', Validators.required],
+      city: ['', Validators.required],
+      yearBuilt: ['', Validators.required],
       picker: '',
       features: this.formBuilder.array([]),
       beds: this.formBuilder.array([]),
@@ -200,6 +201,12 @@ export class AppComponent implements OnInit, AfterViewInit {
     console.log('Data: ');
     this.minsize = this.leadForm.get('minsize') as FormArray;
     this.minsize.push(this.formBuilder.control(data));
+  }
+
+  addMaxSizeItem(data): void {
+    console.log('Data maxsize: ');
+    this.maxsize = this.leadForm.get('maxsize') as FormArray;
+    this.maxsize.push(this.formBuilder.control(data));
   }
 
   initBedsControl(): void {
@@ -264,6 +271,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       this.isLoading = false;
     }, 3500);
+
+    this.leadForm.reset();
   }
 
 }
