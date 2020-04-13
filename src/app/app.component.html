@@ -12,13 +12,13 @@
 
       <div class="group-wrapper">
         <mat-form-field>
-          <input matInput placeholder="Name" formControlName="name">
+          <input matInput placeholder="Name" formControlName="name" required>
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Surname" formControlName="surname">
+          <input matInput placeholder="Surname" formControlName="surname" required>
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Address" formControlName="address">
+          <input matInput placeholder="Address" formControlName="address" required>
         </mat-form-field>
       </div>
 
@@ -78,7 +78,7 @@
         <div formArrayName="minsize">
           <mat-form-field class="half">
             <mat-label >Size/Square feet</mat-label>
-            <mat-select (selectionChange)="addMinSizeItem($event.value)"> <!-- [formControlName]="minsize" -->
+            <mat-select (selectionChange)="addMinSizeItem($event.value)">
               <mat-option *ngFor="let min of minSize" [value]="min.value">
                 {{ min.value }}<sub style="vertical-align: super;">2</sub>
               </mat-option>
@@ -88,7 +88,7 @@
 
         <div formArrayName="maxsize">
           <mat-form-field class="half">
-            <mat-select> <!-- [formControlName]="maxsize" -->
+            <mat-select (selectionChange)="addMaxSizeItem($event.value)">
               <mat-option *ngFor="let max of maxSize" [value]="max.value">
                 {{ max.value }}<sub style="vertical-align: super;">2</sub>
               </mat-option>
@@ -101,7 +101,7 @@
       <div class="group-wrapper">
         <mat-form-field class="half">
           <mat-label >Budget</mat-label>
-          <mat-select> <!-- [formControlName]="from" -->
+          <mat-select formControlName="budgetfrom">
             <mat-option *ngFor="let budget of budgetFrom" [value]="budget.value">
               {{ budget.value }}
             </mat-option>
@@ -109,7 +109,7 @@
         </mat-form-field>
 
         <mat-form-field class="half">
-          <mat-select> <!-- [formControlName]="to" -->
+          <mat-select formControlName="budgetto">
             <mat-option *ngFor="let to of budgetTo" [value]="to.value">
               {{ to.value }}
             </mat-option>
@@ -128,7 +128,7 @@
       <div class="group-wrapper twice">
         <mat-form-field>
           <mat-label >Property Type</mat-label>
-          <mat-select> <!-- [formControlName]="propertyType" -->
+          <mat-select formControlName="propertyType">
             <mat-option *ngFor="let prop of property" [value]="prop.value">
               {{ prop.value }}
             </mat-option>
@@ -139,7 +139,7 @@
       <div class="group-wrapper twice">
         <mat-form-field>
           <mat-label >Apartment Type</mat-label>
-          <mat-select> <!-- [formControlName]="apartmentType" -->
+          <mat-select formControlName="apartmentType">
             <mat-option *ngFor="let apartment of apartmentType" [value]="apartment.value">
               {{ apartment.value }}
             </mat-option>
@@ -170,7 +170,7 @@
       <div class="group-wrapper twice">
         <mat-form-field>
           <mat-label >City/Neighborhod/Zip</mat-label>
-          <mat-select> <!-- [formControlName]="city" -->
+          <mat-select formControlName="city">
             <mat-option *ngFor="let c of city" [value]="c.value">
               {{ c.value }}
             </mat-option>
@@ -181,7 +181,7 @@
       <div class="group-wrapper twice">
         <mat-form-field>
           <mat-label >Year built</mat-label>
-          <mat-select> <!-- [formControlName]="yearBuilt" -->
+          <mat-select formControlName="yearBuilt">
             <mat-option *ngFor="let y of year" [value]="y.value">
               {{ y.value }}
             </mat-option>
