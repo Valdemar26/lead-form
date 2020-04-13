@@ -1,3 +1,5 @@
+@import "../assets/variables";
+
 .wrapper {
   padding: 10px;
 
@@ -12,17 +14,17 @@
 
     p {
       cursor: pointer;
-      color: #3087FF;
+      color: $blue;
       font-weight: 700;
       padding: 12px 20px;
       box-sizing: border-box;
       min-width: 80px;
-      border: 1px solid #fff;
+      border: 1px solid $white;
       border-radius: 5px;
       transition: border 0.3s ease;
 
       &:hover {
-        border: 1px solid #3087FF;
+        border: 1px solid $blue;
       }
     }
   }
@@ -51,7 +53,7 @@
             right: 0;
             top: 20px;
             cursor: pointer;
-            color: #3087FF;
+            color: $blue;
           }
         }
 
@@ -63,7 +65,7 @@
             top: 35px;
             left: 0;
             div {
-              color: red;
+              color: $fire;
             }
           }
         }
@@ -82,15 +84,15 @@
         .mat-chip {
           margin-right: 10px;
           margin-bottom: 10px;
-          background: #3087FF;
-          color: #fff;
+          background: $blue;
+          color: $white;
 
           &:last-child {
             margin-right: 0;
           }
           &.mat-standard-chip {
             .mat-chip-remove {
-              color: #fff;
+              color: $white;
               opacity: .8;
             }
           }
@@ -132,14 +134,14 @@
 
               button {
                 border: 1px solid #ccc;
-                background: #fff;
+                background: $white;
                 color: #5B5B5B;
                 transition: background 0.3s ease, color 0.3s ease;
 
                 &:hover {
-                  background: #3087FF;
-                  color: #fff;
-                  border: 1px solid #3087FF;
+                  background: $blue;
+                  color: $white;
+                  border: 1px solid $blue;
                 }
               }
             }
@@ -174,7 +176,7 @@
 
           .found {
             background: #959595;
-            color: #fff;
+            color: $white;
             padding: 20px;
             display: flex;
             flex-direction: column;
@@ -189,7 +191,7 @@
             }
 
             .wrapper {
-              background: #fff;
+              background: $white;
               color: #4e4e4e;
               display: flex;
               justify-content: space-between;
@@ -197,7 +199,8 @@
               .selected {
                 border: 1px solid #00214e;
                 background-color: #114388;
-                color: #fff;
+                color: $white;
+                width: 70px;
               }
 
               button {
@@ -240,7 +243,7 @@
 
           span {
             cursor: pointer;
-            color: #3087FF;
+            color: $blue;
           }
 
         }
@@ -280,8 +283,8 @@
     }
 
     button {
-      background: #3087FF;
-      color: #fff;
+      background: $blue;
+      color: $white;
       padding: 12px 30px;
       cursor: pointer;
       border: none;
@@ -292,20 +295,18 @@
       line-height: 1.3;
 
       &:hover {
-        background: darken(#3087FF, 5%);
+        background: darken($blue, 5%);
       }
 
       &:disabled,
       &[disabled]{
         cursor: not-allowed;
-        background: lighten(#3087FF, 10%);
+        background: lighten($blue, 10%);
       }
     }
 
   }
 }
-
-
 
 .loading {
   position: absolute;
