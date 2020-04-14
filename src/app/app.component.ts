@@ -1,9 +1,9 @@
-import {AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import {fromEvent} from 'rxjs';
-import {tap} from 'rxjs/operators';
+
+import emailMask from 'text-mask-addons/dist/emailMask';
 
 @Component({
   selector: 'app-root',
@@ -118,6 +118,16 @@ export class AppComponent implements OnInit, AfterViewInit {
   selectedButtons: any[] = [];
   submitted = false;
 
+  public usaPhone = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]; // (555) 123-4567
+  public usaPhoneWithCode = ['+', '1', ' ', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+  public uaPhone = ['+', '38', ' ', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+
+  public date = {
+    guide: true,
+    showMask : true,
+    mask: [/\d/, /\d/, '.', /\d/, /\d/, '.', /\d/, /\d/, /\d/, /\d/] // 26.08.2019
+  };
+
   @ViewChild('buttonsRef', {static: true}) buttonsRef: ElementRef;
 
   constructor(private formBuilder: FormBuilder) {}
@@ -131,6 +141,8 @@ export class AppComponent implements OnInit, AfterViewInit {
    *
    * FormGroup groups AbstractControl objects in an object.
    * FormArray groups AbstractControl in an array
+   *
+   * setValue() and patchValue() methods used to updating form
    */
 
   initForm() {
@@ -138,7 +150,10 @@ export class AppComponent implements OnInit, AfterViewInit {
       name: ['', [Validators.required, Validators.minLength(2)]],
       surname: ['', [Validators.required, Validators.minLength(2)]],
       address: ['', [Validators.required]],
-      emails: this.formBuilder.array([ this.formBuilder.control('', [Validators.required, Validators.email]) ]),
+      emails: this.formBuilder.array([ this.formBuilder.control('', [
+        Validators.required,
+        Validators.email
+      ]) ]),
       phones: this.formBuilder.array([ this.formBuilder.control('') ]),
       status: '',
       buyer: '',
@@ -266,7 +281,6 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     console.log('LeadForm: ', this.leadForm.value);
     this.isLoading = true;
-    this.leadForm.reset();
 
     setTimeout(() => {
       this.isLoading = false;

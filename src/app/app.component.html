@@ -25,12 +25,15 @@
       <div class="group-wrapper">
 
         <div formArrayName="emails">
-          <ng-container *ngFor="let item of leadForm.get('emails').controls; let i = index;">
+          <ng-container *ngFor="let item of leadForm.get('emails')['controls']; let i = index;">
             <mat-form-field class="mat-form-wrapp">
               <input matInput placeholder="Email" type="email" [formControlName]="i">
-              <div *ngIf="form.emails.controls[i]?.errors" class="invalid-feedback">
-                <div *ngIf="form.emails.controls[i]?.errors.required && form.emails.controls[i]?.touched">Email is required</div>
-                <div *ngIf="form.emails.controls[i]?.errors.email">Email must be a valid email address</div>
+              <div *ngIf="leadForm.get('emails')['controls'][i]?.errors" class="invalid-feedback">
+                <div
+                  *ngIf="leadForm.get('emails')['controls'][i]?.errors.required && leadForm.get('emails')['controls'][i]?.touched">
+                  Email is required
+                </div>
+                <div *ngIf="leadForm.get('emails')['controls'][i]?.errors.emails">Email must be a valid email address</div>
               </div>
             </mat-form-field>
           </ng-container>
@@ -38,9 +41,9 @@
         </div>
 
         <div formArrayName="phones">
-          <ng-container *ngFor="let item of leadForm.get('phones').controls; let i = index;">
+          <ng-container *ngFor="let item of leadForm.get('phones')['controls']; let i = index;">
             <mat-form-field>
-              <input matInput placeholder="Phone" [formControlName]="i">
+              <input matInput placeholder="Phone" [formControlName]="i" [textMask]="{mask: usaPhoneWithCode}">
             </mat-form-field>
           </ng-container>
         <span (click)="addPhoneItem()">Add</span>
@@ -60,7 +63,7 @@
         </mat-form-field>
 
         <div formArrayName="phones">
-          <ng-container *ngFor="let item of leadForm.get('customs').controls; let i = index;">
+          <ng-container *ngFor="let item of leadForm.get('customs')['controls']; let i = index;">
             <mat-form-field>
               <input matInput [disabled]="true" placeholder="+Add custom field" [formControlName]="i">
             </mat-form-field>
@@ -191,7 +194,13 @@
 
       <div class="group-wrapper twice">
         <mat-form-field >
-          <input matInput formControlName="picker" [matDatepicker]="picker" placeholder="Move-in date">
+
+          <input type="hidden" formControlName="picker" [matDatepicker]="picker" [ngModel]="value | date:'MM.dd.yyyy'">
+          <input matInput placeholder="Move-in date" [textMask]="date">
+
+<!--          <input matInput formControlName="picker" [matDatepicker]="picker"-->
+<!--                 placeholder="Move-in date">-->
+
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
@@ -243,7 +252,7 @@
     </div>
 
     <button mat-raised-button type="submit"
-      (click)="submitForm()" [disabled]="!leadForm.valid">Submit</button>
+      (click)="submitForm()" [disabled]="leadForm.invalid">Submit</button>
 
   </form>
 
