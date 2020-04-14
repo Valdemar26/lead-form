@@ -14,6 +14,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material/button';
 
+import { TextMaskModule } from 'angular2-text-mask';
+
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatMomentDateModule,
     MatChipsModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    TextMaskModule
   ],
   providers: [],
   bootstrap: [AppComponent]
